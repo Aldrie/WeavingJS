@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instructions of <%=filename%>
+  </title>
+  <style>
+    :root {
+      --background-color: #111116;
+      --surface-color: #212126;
+      --text-color: #fafafa;
+      --bold-color: #d1d1ff;
+      --hint-color: #f8ff7a;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text-color);
+    }
+
+    html,
+    body {
+      width: 100%;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background: var(--background-color);
+    }
+
+    .container {
+      width: 50%;
+      min-height: 100%;
+      background: var(--surface-color);
+      margin-top: 10%;
+      border-radius: 32px;
+      position: relative;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-direction: column;
+      padding: 32px;
+      padding-top: 10%;
+      margin-bottom: 32px;
+    }
+
+    .container .image {
+      width: 15vw;
+      height: 15vw;
+      border-radius: 10vw;
+      background: #fff;
+      background-image: url('<%= filename.substr(0, filename.lastIndexOf(".")) + ".png" %>');
+      background-size: cover;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      margin: -15% auto;
+    }
+
+    ol {
+      list-style: none;
+      counter-reset: my-counter;
+    }
+
+    ol li {
+      counter-increment: my-counter;
+      font-size: 1.6rem;
+      margin: 4px 0;
+    }
+
+
+    ol li::before {
+      content: counter(my-counter) ") ";
+      font-weight: bold;
+      font-size: 1.7rem;
+      color: var(--bold-color);
+    }
+
+    bold {
+      color: var(--hint-color);
+    }
+
+    @media screen and (max-width: 800px) {
+      .container {
+        width: 90%;
+        margin-top: 20%;
+        padding-top: 20%;
+      }
+
+      .container .image {
+        width: 30vw;
+        height: 30vw;
+        border-radius: 15vw;
+        margin: -16% auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="image"></div>
+    <div class="list">
+      <ol>
+        <% instructions.forEach((instruction, index)=> { %>
+          <li>From <bold>
+              <%= index !==0 ? instructions[index-1] : 'none' %>
+            </bold> to <bold>
+              <%= instruction %>
+            </bold>
+          </li>
+          <% }); %>
+      </ol>
+    </div>
+  </div>
+</body>
+
+</html>
